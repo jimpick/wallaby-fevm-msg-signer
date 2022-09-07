@@ -11,6 +11,8 @@
   "license": "MIT/Apache-2 (Permissive License Stack)",
   "dependencies": {
     "@blitslabs/filecoin-js-signer": "^1.0.6",
-    "dotenv": "^16.0.2"
+    "borc": "^3.0.0",
+    "dotenv": "^16.0.2",
+    "multiformats": "^9.8.1"
   }
 }
