@@ -10,9 +10,12 @@
   "author": "Jim Pick (@jimpick)",
   "license": "MIT/Apache-2 (Permissive License Stack)",
   "dependencies": {
-    "@blitslabs/filecoin-js-signer": "^1.0.6",
+    "@blitslabs/filecoin-js-signer": "1.0.6",
+    "@glif/filecoin-address": "^2.0.1",
     "borc": "^3.0.0",
+    "delay": "^5.0.0",
     "dotenv": "^16.0.2",
+    "filecoin.js": "0.0.5-alpha",
     "multiformats": "^9.8.1"
   }
 }
