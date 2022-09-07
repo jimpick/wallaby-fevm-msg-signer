@@ -1,0 +1,16 @@
+{
+  "name": "@jimpick/fevm-msg-signer",
+  "version": "0.0.1",
+  "description": "A minimalist command line tool for interacting with the Wallaby testnet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jim Pick (@jimpick)",
+  "license": "MIT/Apache-2 (Permissive License Stack)",
+  "dependencies": {
+    "@blitslabs/filecoin-js-signer": "^1.0.6",
+    "dotenv": "^16.0.2"
+  }
+}
