@@ -1,9 +1,8 @@
 import fs from 'fs'
 import { CID } from 'multiformats'
 import cbor from 'borc'
-import delay from 'delay'
-import { HttpJsonRpcConnector, LotusClient } from 'filecoin.js'
 import filecoinAddress from '@glif/filecoin-address'
+import { pushAndWait } from './push-and-wait.mjs'
 
 export async function createActor ({
   argv,
@@ -87,67 +86,29 @@ export async function createActor ({
       Params: params.toString('base64')
     }
 
-    // console.log('message', message)
-    const response = await signerClient.tx.sendMessage(
+    const response = await pushAndWait({
       message,
-      key.privateKey,
-      true, // updateMsgNonce
-      false // waitMsg
-    )
-    const messageCid = response['/']
-    console.log('Message CID:', messageCid)
-    console.log(
-      'GLIF Explorer:',
-      `https://explorer-calibration.glif.link/message/?network=wallaby&cid=${messageCid}`
-    )
+      key,
+      endpoint,
+      token,
+      signerClient
+    })
+    const base64Result = response.Receipt.Return
 
-    // Wait for message using Filecoin.js
-    const connector = new HttpJsonRpcConnector({ url: endpoint, token })
-    const waitClient = new LotusClient(connector)
-
-    console.log('Waiting for message to appear on chain...')
-    let waitResponse
-    while (true) {
-      try {
-        process.stdout.write('.')
-        // console.log('API call')
-        waitResponse = await waitClient.state.searchMsg({ '/': messageCid })
-        if (!waitResponse) {
-          // console.log('Sleeping 5s')
-          await delay(5000)
-          continue
-        }
-        break
-      } catch (e) {
-        console.error('Error', e)
-        if (e.message.match(/timeout/i)) continue
-        break
-      }
-    }
-    process.stdout.write('\n')
-    if (waitResponse.Receipt.ExitCode === 0) {
-      console.log('Message Executed at Height:', waitResponse.Height)
-      console.log('Gas Used:', waitResponse.Receipt.GasUsed)
-      const base64Result = waitResponse.Receipt.Return
-      // console.log('Base64 Result:', base64Result)
-      const decoded = cbor.decode(base64Result, 'base64')
-      // console.log('CBOR Decoded Result:', decoded)
-      const idAddress = filecoinAddress.newAddress(
-        decoded[0][0],
-        decoded[0].slice(1),
-        't'
-      )
-      console.log('ID Address:', idAddress.toString())
-      const robustAddress = filecoinAddress.newAddress(
-        decoded[1][0],
-        decoded[1].slice(1),
-        't'
-      )
-      console.log('Robust Address:', robustAddress.toString())
-    } else {
-      console.log('Response:', waitResponse)
-      process.exit(1)
-    }
+    const decoded = cbor.decode(base64Result, 'base64')
+    // console.log('CBOR Decoded Result:', decoded)
+    const idAddress = filecoinAddress.newAddress(
+      decoded[0][0],
+      decoded[0].slice(1),
+      't'
+    )
+    console.log('ID Address:', idAddress.toString())
+    const robustAddress = filecoinAddress.newAddress(
+      decoded[1][0],
+      decoded[1].slice(1),
+      't'
+    )
+    console.log('Robust Address:', robustAddress.toString())
   } catch (e) {
     console.error('create-evm-actor error:', e)
     process.exit(1)
