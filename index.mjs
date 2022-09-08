@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from 'fs'
 import { FilecoinClient, FilecoinSigner } from '@blitslabs/filecoin-js-signer'
 import * as dotenv from 'dotenv'

@@ -4,7 +4,7 @@
   "description": "A minimalist command line tool for interacting with the Wallaby testnet",
   "main": "index.js",
   "bin": {
-    "wallaby-fevm-msg-signer": "./index.js"
+    "wallaby-fevm-msg-signer": "./index.mjs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +19,7 @@
     "delay": "^5.0.0",
     "dotenv": "^16.0.2",
     "filecoin.js": "0.0.5-alpha",
+    "minimist": "^1.2.6",
     "multiformats": "^9.8.1"
   },
   "repository": {
