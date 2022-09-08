@@ -1,4 +1,4 @@
-@jimpick/wallaby-fevm-msg-signer
+wallaby-fevm-msg-signer
 ===
 
 A minimalist command line tool for interacting with the Wallaby testnet

@@ -63,7 +63,11 @@ export async function createActor ({
       process.exit(1)
     }
     const evmBytes = fs.readFileSync(file)
-    const evmBytesCbor = cbor.encode([evmBytes, new Uint8Array(0)])
+    let evmBytesConverted = evmBytes
+    if (evmBytes[0] != 0x60 && evmBytes[1] != 0x80) {
+      evmBytesConverted = Buffer.from(evmBytes.toString().trim(), 'hex')
+    }
+    const evmBytesCbor = cbor.encode([evmBytesConverted, new Uint8Array(0)])
 
     // Needs a zero byte in front
     const evmActorCidBytes = new Uint8Array(actorCid.bytes.length + 1)
