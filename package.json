@@ -1,10 +1,10 @@
 {
-  "name": "@jimpick/fevm-msg-signer",
+  "name": "@jimpick/wallaby-fevm-msg-signer",
   "version": "0.0.1",
   "description": "A minimalist command line tool for interacting with the Wallaby testnet",
   "main": "index.js",
   "bin": {
-    "fevm-msg-signer": "./index.js"
+    "wallaby-fevm-msg-signer": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,5 +20,9 @@
     "dotenv": "^16.0.2",
     "filecoin.js": "0.0.5-alpha",
     "multiformats": "^9.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jimpick/wallaby-fevm-msg-signer.git"
   }
 }
