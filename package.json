@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A minimalist command line tool for interacting with the Wallaby testnet",
   "main": "index.js",
+  "bin": {
+    "fevm-msg-signer": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
