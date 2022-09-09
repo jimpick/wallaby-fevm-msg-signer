@@ -75,7 +75,6 @@ async function run () {
     })
   } else if (argv._[0] === 'invoke-evm-actor') {
     await invokeMethod({
-      argv,
       key,
       endpoint,
       token,

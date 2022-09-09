@@ -2,19 +2,26 @@ const cbor = require('borc')
 const pushAndWait = require('./push-and-wait.js')
 const { usageInvokeEvmActor } = require('./usage.js')
 
-async function invokeMethod ({ argv, key, endpoint, token, signerClient }) {
+async function invokeMethod ({ key, endpoint, token, signerClient }) {
   const chalk = (await import('chalk')).default
-  const address = argv._[1]
+
+  // minimist converts argv._ to numbers, stripping leading zeros
+  // Use process.argv instead
+  const args = process.argv.slice(2)
+    .filter(s => !s.startsWith('-'))
+    .filter(s => s !== 'invoke-evm-actor')
+
+  const address = args[0]
   if (!address) {
     console.error('invoke-evm-actor: Need actor address as a parameter!\n')
   }
 
-  const method = argv._[2]
+  const method = args[1]
   if (!method) {
     console.error('invoke-evm-actor: Need method signature as a parameter!\n')
   }
 
-  const methodParamsHex = argv._[3]
+  const methodParamsHex = args[2] || ''
 
   if (!address || !method) {
     usageInvokeEvmActor()
@@ -25,8 +32,8 @@ async function invokeMethod ({ argv, key, endpoint, token, signerClient }) {
     console.log(chalk.blue('From Address:'), key.address)
 
     const evmParams = Buffer.concat([
-      Buffer.from(String(method), 'hex'),
-      Buffer.from(String(methodParamsHex), 'hex')
+      Buffer.from(method, 'hex'),
+      Buffer.from(methodParamsHex, 'hex')
     ])
     const params = cbor.encode([evmParams])
 
