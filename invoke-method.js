@@ -2,13 +2,7 @@ const cbor = require('borc')
 const pushAndWait = require('./push-and-wait.js')
 const { usageInvokeEvmActor } = require('./usage.js')
 
-async function invokeMethod ({
-  argv,
-  key,
-  endpoint,
-  token,
-  signerClient
-}) {
+async function invokeMethod ({ argv, key, endpoint, token, signerClient }) {
   const chalk = (await import('chalk')).default
   const address = argv._[1]
   if (!address) {
@@ -53,9 +47,13 @@ async function invokeMethod ({
       token,
       signerClient
     })
-    const base64Result = response.Receipt.Return
-    const decoded = Buffer.from(base64Result, 'base64')
-    console.log(chalk.green('Decoded Result (hex):'), decoded.toString('hex'))
+    if (response.Receipt.Return) {
+      const base64Result = response.Receipt.Return
+      const decoded = Buffer.from(base64Result, 'base64')
+      console.log(chalk.green('Decoded Result (hex):'), decoded.toString('hex'))
+    } else {
+      console.log(chalk.green('No value returned.'))
+    }
   } catch (e) {
     console.error('invoke-evm-actor error:', e)
     process.exit(1)

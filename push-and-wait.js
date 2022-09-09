@@ -1,13 +1,7 @@
 const delay = require('delay')
 const { HttpJsonRpcConnector, LotusClient } = require('filecoin.js')
 
-async function pushAndWait ({
-  message,
-  key,
-  endpoint,
-  token,
-  signerClient
-}) {
+async function pushAndWait ({ message, key, endpoint, token, signerClient }) {
   const chalk = (await import('chalk')).default
   const ora = (await import('ora')).default
   const spinner1 = ora('Sending message to GLIF gateway').start()

@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const { FilecoinClient, FilecoinSigner } = require('@blitslabs/filecoin-js-signer')
+const {
+  FilecoinClient,
+  FilecoinSigner
+} = require('@blitslabs/filecoin-js-signer')
 const minimist = require('minimist')
 const createActor = require('./create-actor.js')
 const invokeMethod = require('./invoke-method.js')

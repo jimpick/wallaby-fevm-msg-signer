@@ -4,8 +4,10 @@ function usage () {
   console.error(`Usage: ${name} <command>\n`)
   console.error('Commands:\n')
   console.error(`  create-evm-actor <bytecode file>`)
-  console.error(`  invoke-evm-actor <actor id> <method signature> ` +
-                `<optional params (hex)>`)
+  console.error(
+    `  invoke-evm-actor <actor id> <method signature> ` +
+      `<optional params (hex)>`
+  )
   console.error('\nOptions:\n')
   console.error(`  --seed-phrase=<phrase>`)
   console.error(`  --account-number=<integer>`)
@@ -24,8 +26,10 @@ function usageCreateEvmActor () {
 
 function usageInvokeEvmActor () {
   console.error(`Usage:\n`)
-  console.error(`${name} invoke-evm-actor <actor id> <method signature> ` +
-                `<optional params (hex)>`)
+  console.error(
+    `${name} invoke-evm-actor <actor id> <method signature> ` +
+      `<optional params (hex)>`
+  )
 }
 
 module.exports = {

@@ -5,13 +5,7 @@ const filecoinAddress = require('@glif/filecoin-address')
 const pushAndWait = require('./push-and-wait.js')
 const { usageCreateEvmActor } = require('./usage.js')
 
-async function createActor ({
-  argv,
-  key,
-  endpoint,
-  token,
-  signerClient
-}) {
+async function createActor ({ argv, key, endpoint, token, signerClient }) {
   const chalk = (await import('chalk')).default
   const file = argv._[1]
   if (!file) {
