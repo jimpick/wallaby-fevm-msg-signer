@@ -6,11 +6,13 @@ to create Filecoin actors from EVM binaries, and to invoke methods.
 
 Eventually, it will be possible to upload EVM binaries to Filecoin using
 standard Ethereum JSON-RPC clients. Until that time, here is a custom
-tool that speaks to the hosted GLIF endpoing using Lotus JSON-RPC calls.
+tool that speaks to the hosted GLIF endpoint using Lotus JSON-RPC calls.
 
 # Install
 
 First, make sure you have a recent install of [Node.js](https://nodejs.org/en/) on your system.
+
+Then install it globally from NPM:
 
 `npm install -g @jimpick/wallaby-fevm-msg-signer`
 
@@ -41,7 +43,7 @@ Environment Variables: (can be set using .env file)
 The command line is designed to mimic `lotus chain create-evm-actor`
 and `lotus chain invoke-evm-actor`. You can use this tool and the
 public GLIF API gateway for the Wallaby testnet instead of having
-to install a Lotus node yourself.
+to install a Lotus node on the testnet yourself.
 
 # Quickstart
 
@@ -108,8 +110,12 @@ For convenience, we will create a `.env` file with the following contents:
 SEED_PHRASE=@dontlookhere.txt
 ```
 
-The special "@" prefix tells the tools to read the contents of the seed phrase from
+The special "@" prefix tells the tool to read the contents of the seed phrase from
 the file named "dontlookhere.txt".
+
+With a single seed phrase, there are multiple accounts/addresses that you can
+use, starting from "Account 0". You can use the --account-number=<number> option
+with the tool to use accounts other than the first one.
 
 While you are in the GLIF Wallet, also record the address for "Account 0". Initially
 it will have no funds, so you will need to fund it from the Wallaby Faucet.
@@ -129,7 +135,8 @@ eg. `bafy2bzacedooqx3lkogqeg5cfeodo37ub3p36ejmuqn5z7tot7z75ikcnda3w`
 
 You can use the GLIF Explorer to check your balance: https://explorer.glif.io/?network=wallaby
 
-You can view your address there, or view the message from the faucet as well.
+You can view your address on the Explorer to see it's current balance and
+historical transcations. You can also view the message from the faucet as well.
 
 ## Create a Filecoin Actor
 
@@ -157,6 +164,13 @@ address of `t01082`.
 
 Every time this is run, a new actor will be created with a new address.
 
+Note the warning... in order to create an actor using the Lotus API, the tool 
+needs to know the Code CID for the embedded system EVM that is compiled to WASM.
+This will change with each reset of the Wallaby testnet. Right now, the
+CID is hard-coded into the tool for the "selenium" release, but it will
+change when the testnet is reset for the next release. At that time, it
+will be necessary to update the tool.
+
 ## Invoke a method
 
 We'll need the method signatures:
@@ -182,7 +196,10 @@ Gas Used: 2771200
 No value returned.
 ```
 
-Great! Now let's call the `get()` method:
+We passed in the actor ID (`t01082`), the method signature hash (`60fe47b1`) and
+the parameter for the set() method (the value we want to store).
+
+Now let's call the `get()` method:
 
 ```
 $ wallaby-fevm-msg-signer invoke-evm-actor t01082 6d4ce63c
