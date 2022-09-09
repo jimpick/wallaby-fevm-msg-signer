@@ -1,5 +1,6 @@
 const cbor = require('borc')
 const pushAndWait = require('./push-and-wait.js')
+const { usageInvokeEvmActor } = require('./usage.js')
 
 async function invokeMethod ({
   argv,
@@ -22,16 +23,10 @@ async function invokeMethod ({
   const methodParamsHex = argv._[3]
 
   if (!address || !method) {
-    console.error('Usage:\n')
-    console.error(
-      `  * ${process.argv
-        .slice(0, 2)
-        .join(
-          ' '
-        )} invoke-evm-actor <actor id> <method signature> <params (hex)>\n`
-    )
+    usageInvokeEvmActor()
     process.exit(1)
   }
+
   try {
     console.log(chalk.blue('From Address:'), key.address)
 

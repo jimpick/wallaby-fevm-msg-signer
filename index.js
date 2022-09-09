@@ -5,6 +5,7 @@ const { FilecoinClient, FilecoinSigner } = require('@blitslabs/filecoin-js-signe
 const minimist = require('minimist')
 const createActor = require('./create-actor.js')
 const invokeMethod = require('./invoke-method.js')
+const { usage } = require('./usage.js')
 require('dotenv').config()
 
 const argv = minimist(process.argv.slice(2))
@@ -78,19 +79,7 @@ async function run () {
       signerClient
     })
   } else {
-    console.error('Usage:\n')
-    console.error(
-      `  * ${process.argv
-        .slice(0, 2)
-        .join(' ')} create-evm-actor <bytecode file>`
-    )
-    console.error(
-      `  * ${process.argv
-        .slice(0, 2)
-        .join(
-          ' '
-        )} invoke-evm-actor <actor id> <method signature> <params (hex)>\n`
-    )
+    usage()
     process.exit(1)
   }
 }
