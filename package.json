@@ -7,8 +7,9 @@
     "wallaby-fevm-msg-signer": "./index.js"
   },
   "scripts": {
-    "build": "ncc build index.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "ncc build index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Jim Pick (@jimpick)",
