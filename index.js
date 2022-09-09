@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-import fs from 'fs'
-import { FilecoinClient, FilecoinSigner } from '@blitslabs/filecoin-js-signer'
-import * as dotenv from 'dotenv'
-import minimist from 'minimist'
-import { createActor } from './create-actor.mjs'
-import { invokeMethod } from './invoke-method.mjs'
+const fs = require('fs')
+const { FilecoinClient, FilecoinSigner } = require('@blitslabs/filecoin-js-signer')
+const minimist = require('minimist')
+const createActor = require('./create-actor.js')
+const invokeMethod = require('./invoke-method.js')
+require('dotenv').config()
 
-dotenv.config()
 const argv = minimist(process.argv.slice(2))
 
 async function run () {

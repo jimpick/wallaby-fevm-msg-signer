@@ -1,16 +1,17 @@
-import fs from 'fs'
-import { CID } from 'multiformats'
-import cbor from 'borc'
-import filecoinAddress from '@glif/filecoin-address'
-import { pushAndWait } from './push-and-wait.mjs'
+const fs = require('fs')
+const { CID } = require('multiformats')
+const cbor = require('borc')
+const filecoinAddress = require('@glif/filecoin-address')
+const pushAndWait = require('./push-and-wait.js')
 
-export async function createActor ({
+async function createActor ({
   argv,
   key,
   endpoint,
   token,
   signerClient
 }) {
+  const chalk = (await import('chalk')).default
   const file = argv._[1]
   if (!file) {
     console.error('create-evm-actor: Need bytecode file as a parameter!\n')
@@ -35,8 +36,12 @@ export async function createActor ({
 
     if (!evmActorCid && !milestone) {
       console.error(
-        'Milestone not selected and EVM Actor CID not specified, ' +
+        chalk.red('Warning:') +
+          ' Milestone not selected and EVM Actor CID not specified, ' +
           'defaulting to EVM Actor CID for "selenium" release.'
+      )
+      console.error(
+        '         Actor install may fail if wallaby testnet has been updated.'
       )
       milestone = 'selenium'
     }
@@ -77,10 +82,9 @@ export async function createActor ({
       evmBytesCbor
     ])
 
-    console.log('From Address:', key.address)
-    console.log('EVM Actor CID:', actorCid.toString())
+    console.log(chalk.blue('From Address:'), key.address)
+    console.log(chalk.blue('EVM Actor CID:'), actorCid.toString())
 
-    console.log('Sending message to GLIF gateway...')
     // Sending create actor message...
     const message = {
       To: 't01',
@@ -106,15 +110,17 @@ export async function createActor ({
       decoded[0].slice(1),
       't'
     )
-    console.log('ID Address:', idAddress.toString())
+    console.log(chalk.green('ID Address:'), idAddress.toString())
     const robustAddress = filecoinAddress.newAddress(
       decoded[1][0],
       decoded[1].slice(1),
       't'
     )
-    console.log('Robust Address:', robustAddress.toString())
+    console.log(chalk.green('Robust Address:'), robustAddress.toString())
   } catch (e) {
     console.error('create-evm-actor error:', e)
     process.exit(1)
   }
 }
+
+module.exports = createActor

@@ -4,9 +4,10 @@
   "description": "A minimalist command line tool for interacting with the Wallaby testnet",
   "main": "index.js",
   "bin": {
-    "wallaby-fevm-msg-signer": "./index.mjs"
+    "wallaby-fevm-msg-signer": "./index.js"
   },
   "scripts": {
+    "build": "ncc build index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,14 +17,20 @@
     "@blitslabs/filecoin-js-signer": "1.0.6",
     "@glif/filecoin-address": "^2.0.1",
     "borc": "^3.0.0",
+    "chalk": "^5.0.1",
     "delay": "^5.0.0",
     "dotenv": "^16.0.2",
     "filecoin.js": "0.0.5-alpha",
     "minimist": "^1.2.6",
-    "multiformats": "^9.8.1"
+    "multiformats": "^9.8.1",
+    "ora": "^6.1.2"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/jimpick/wallaby-fevm-msg-signer.git"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "ncc": "^0.3.6"
   }
 }
