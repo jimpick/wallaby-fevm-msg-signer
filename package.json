@@ -1,6 +1,6 @@
 {
   "name": "@jimpick/wallaby-fevm-msg-signer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A minimalist command line tool for interacting with the Wallaby testnet",
   "main": "index.js",
   "bin": {
