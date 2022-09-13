@@ -27,23 +27,23 @@ async function createActor ({ argv, key, endpoint, token, signerClient }) {
       console.error(
         chalk.red('Warning:') +
           ' Milestone not selected and EVM Actor CID not specified, ' +
-          'defaulting to EVM Actor CID for "selenium" release.'
+          'defaulting to EVM Actor CID for "copper" release.'
       )
       console.error(
         '         Actor install may fail if wallaby testnet has been updated.'
       )
-      milestone = 'selenium'
+      milestone = 'copper'
     }
 
-    // For selenium
-    if (milestone === 'selenium') {
+    // For copper
+    if (milestone === 'copper') {
       evmActorCid =
         'bafk2bzacecexlftjkmtigpxl4ecsfyj45aifczzyzwafld26r73xibk6upfeq'
     }
 
     if (!evmActorCid) {
       console.error('create-evm-actor: Need CID for EVM actor!\n')
-      console.error('Either use --milestone=<release> (eg. "selenium") or')
+      console.error('Either use --milestone=<release> (eg. "copper") or')
       console.error(' use --evm-actor-cid=<cid>. You can also set the')
       console.error(' MILESTONE or EVM_ACTOR_CID environment variables or')
       console.error(' define them in the .env file.')
