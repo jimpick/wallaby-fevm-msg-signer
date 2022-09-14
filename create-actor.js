@@ -38,7 +38,7 @@ async function createActor ({ argv, key, endpoint, token, signerClient }) {
     // For copper
     if (milestone === 'copper') {
       evmActorCid =
-        'bafk2bzacecexlftjkmtigpxl4ecsfyj45aifczzyzwafld26r73xibk6upfeq'
+        'bafk2bzaceby6fqurr4yzveyu4rchso36gdytfrezdrjgae4aef45z3dh42wrc'
     }
 
     if (!evmActorCid) {
