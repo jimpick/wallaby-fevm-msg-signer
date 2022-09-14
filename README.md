@@ -8,6 +8,10 @@ Eventually, it will be possible to upload EVM binaries to Filecoin using
 standard Ethereum JSON-RPC clients. Until that time, here is a custom
 tool that speaks to the hosted GLIF endpoint using Lotus JSON-RPC calls.
 
+# Video Demo
+
+* Twitch: [Deploying your first simple Solidity smart contract on the Filecoin Ethereum Virtual Machine (FEVM)](https://www.twitch.tv/videos/1590881625)
+
 # Install
 
 First, make sure you have a recent install of [Node.js](https://nodejs.org/en/) on your system.
