@@ -31,11 +31,10 @@ async function invokeMethod ({ key, endpoint, token, signerClient }) {
   try {
     console.log(chalk.blue('From Address:'), key.address)
 
-    const evmParams = Buffer.concat([
+    const params = Buffer.concat([
       Buffer.from(method, 'hex'),
       Buffer.from(methodParamsHex, 'hex')
     ])
-    const params = cbor.encode([evmParams])
 
     // Sending message to invoke method...
     const message = {
