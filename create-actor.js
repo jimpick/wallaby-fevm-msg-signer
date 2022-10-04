@@ -27,23 +27,23 @@ async function createActor ({ argv, key, endpoint, token, signerClient }) {
       console.error(
         chalk.red('Warning:') +
           ' Milestone not selected and EVM Actor CID not specified, ' +
-          'defaulting to EVM Actor CID for "copper" release.'
+          'defaulting to EVM Actor CID for "iron" release.'
       )
       console.error(
         '         Actor install may fail if wallaby testnet has been updated.'
       )
-      milestone = 'copper'
+      milestone = 'iron'
     }
 
-    // For copper
-    if (milestone === 'copper') {
+    // For iron (patch)
+    if (milestone === 'iron') {
       evmActorCid =
-        'bafk2bzaceby6fqurr4yzveyu4rchso36gdytfrezdrjgae4aef45z3dh42wrc'
+        'bafk2bzacecgwjrepfw6r4ozuw47qw435n2jwgxnkdy7yrkbnsdgnqwd2wkcve'
     }
 
     if (!evmActorCid) {
       console.error('create-evm-actor: Need CID for EVM actor!\n')
-      console.error('Either use --milestone=<release> (eg. "copper") or')
+      console.error('Either use --milestone=<release> (eg. "iron") or')
       console.error(' use --evm-actor-cid=<cid>. You can also set the')
       console.error(' MILESTONE or EVM_ACTOR_CID environment variables or')
       console.error(' define them in the .env file.')
@@ -61,7 +61,7 @@ async function createActor ({ argv, key, endpoint, token, signerClient }) {
     if (evmBytes[0] != 0x60 && evmBytes[1] != 0x80) {
       evmBytesConverted = Buffer.from(evmBytes.toString().trim(), 'hex')
     }
-    const evmBytesCbor = cbor.encode([evmBytesConverted, new Uint8Array(0)])
+    const evmBytesCbor = cbor.encode([evmBytesConverted])
 
     // Needs a zero byte in front
     const evmActorCidBytes = new Uint8Array(actorCid.bytes.length + 1)
@@ -82,6 +82,7 @@ async function createActor ({ argv, key, endpoint, token, signerClient }) {
       Method: 2,
       Params: params.toString('base64')
     }
+    // console.log('Message:\n', JSON.stringify(message, null, 2))
 
     const response = await pushAndWait({
       message,
