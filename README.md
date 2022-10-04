@@ -10,7 +10,7 @@ tool that speaks to the hosted GLIF endpoint using Lotus JSON-RPC calls.
 
 # Video Demo
 
-* Twitch: [Deploying your first simple Solidity smart contract on the Filecoin Ethereum Virtual Machine (FEVM)](https://www.twitch.tv/videos/1590881625)
+* YouTube: [Deploying your first simple Solidity smart contract on the Filecoin Ethereum Virtual Machine (FEVM)](https://www.youtube.com/watch?v=IOcaMaxiEYw)
 
 # Install
 
